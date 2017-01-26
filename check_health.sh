@@ -44,18 +44,18 @@ while :;
 do
 clear
 countdown="61" #Set this 1 second higher than the countdown you want for healthcheck
-UPTIME=$(cat /proc/loadavg | awk '{print $1" "$2" "$3}')
-case $(echo $UPTIME | cut -d"." -f1) in
-0) UPTIME=$(echo "${blue}${UPTIME}${CLEAR}");;
-1) UPTIME=$(echo "${green}${UPTIME}${CLEAR}");;
-2) UPTIME=$(echo "${yellow}${UPTIME}${CLEAR}");;
-*) UPTIME=$(echo "${red}${UPTIME}${CLEAR}");;
+LOAD=$(cat /proc/loadavg | awk '{print $1" "$2" "$3}')
+case $(echo $LOAD | cut -d"." -f1) in
+0) LOAD=$(echo "${blue}${LOAD}${CLEAR}");;
+1) LOAD=$(echo "${green}${LOAD}${CLEAR}");;
+2) LOAD=$(echo "${yellow}${LOAD}${CLEAR}");;
+*) LOAD=$(echo "${red}${LOAD}${CLEAR}");;
 esac
 
 HANDBRAKE=$(ps -ax | grep "HandBrakeCLI" | egrep -v "find|grep" | awk '{print $1}')
 
 print_info "Performing Media Center health checks $(date +%H:%M)"
- echo -e "         \e[1;97m $(perl -e 'print ucfirst(`uptime -p`);') $UPTIME"
+ echo -e "         \e[1;97m $(perl -e 'print ucfirst(`uptime -p`);') $LOAD"
 printf "\n"
 
 CHECK_PROCESS "/Plex Media Server" "Plex Media Server"
