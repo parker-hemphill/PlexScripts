@@ -122,7 +122,7 @@ then
  for i in $(ls -ltr $media_root/torrent/Complete/Convert/Movies/ | tail -1 | awk '{$1=$2=$3=$4=$5=$6=$7=$8=""; print $0}' | cut -c 9-)
  do
  handbrake_options=" --markers --large-file --encoder x264 --encopts vbv-maxrate=25000:vbv-bufsize=31250:ratetol=inf --crop 0:0:0:0 --strict-anamorphic"
- width="$(mediainfo --Inform='Video;%Width%' "$media_root/torrent/Complete/Convert/Movies/$i")"; height="$(mediainfo --Inform='Video;%Height%' "$media_root/torrent/Complete/Convert/Movies/$i"$
+ width="$(mediainfo --Inform='Video;%Width%' "$media_root/torrent/Complete/Convert/Movies/$i")"; height="$(mediainfo --Inform='Video;%Height%' "$media_root/torrent/Complete/Convert/Movies/$i")"
 if (($width > 1280)) || (($height > 720)); then
     max_bitrate="1800"
 elif (($width > 720)) || (($height > 576)); then
@@ -168,7 +168,6 @@ HandBrakeCLI $handbrake_options --input="$media_root/torrent/Complete/Convert/Mo
 cat /dev/null > /tmp/converted
   mv "$media_root/torrent/Complete/Convert/Movies/${i%\.*}-converted.mp4" "/media/server/torrent/Complete/Rename/Movies/" &&  rm -f "$media_root/torrent/Complete/Convert/Movies/${i}" || rm "$media_root/torrent/Complete/Convert/Movies/${i%\.*}-converted.mp4"
   filebot -script fn:amc --output "/media/server" --action move -non-strict "/media/server/torrent/Complete/Rename/Movies" --log-file amc.log --def excludeList=amc.txt --def clean=yes
- done
 else
 echo "No files to encode"
 fi
