@@ -143,20 +143,19 @@ then
  ENCODE "TVShows" "${i}"
 cat /dev/null > /tmp/converted
   mv "$media_root/torrent/Complete/Convert/TVShows/${i%\.*}-converted.mp4" "/media/server/torrent/Complete/Rename/TVShows/" &&  rm -f "$media_root/torrent/Complete/Convert/TVShows/${i}" || rm "$media_root/torrent/Complete/Convert/TVShows/${i%\.*}-converted.mp4"
-  filebot -script fn:amc --output "/media/server/torrent/Complete/IMPORT" --action move -non-strict "/media/server/torrent/Complete/Rename/TVShows" --log-file ~/amc.log --def excludeList=amc.txt --def clean=yes
-   cat ~/amc.txt | sed '${s/$/'" \[$(date)\]"'/;}' > ~/amc.txt
+  filebot -script fn:amc --output "/media/server/torrent/Complete/IMPORT" --action move -non-strict "/media/server/torrent/Complete/Rename/TVShows" --log-file=/dev/null --def excludeList=~/amc.txt --def clean=yes
+  echo "[TV Show] ${i} [$(date "+%a %D %H:%M")]" >> ~/converted.log
  done
-elif [ -n "$(ls -A $media_root/torrent/Complete/Convert/Movies/)" ]
+fi
+if [ -n "$(ls -A $media_root/torrent/Complete/Convert/Movies/)" ]
 then
  for i in $(ls -ltr $media_root/torrent/Complete/Convert/Movies/ | tail -1 | awk '{$1=$2=$3=$4=$5=$6=$7=$8=""; print $0}' | cut -c 9-)
  do
  ENCODE "Movies" "${i}"
-cat /dev/null > /tmp/converted
+ cat /dev/null > /tmp/converted
   mv "$media_root/torrent/Complete/Convert/Movies/${i%\.*}-converted.mp4" "$media_root/torrent/Complete/Rename/Movies/" &&  rm -f "$media_root/torrent/Complete/Convert/Movies/${i}" || rm "$media_root/torrent/Complete/Convert/Movies/${i%\.*}-converted.mp4"
-  cat ~/amc.txt | sed '${s/$/'" \[$(date)\]"'/;}' > ~/amc.txt
-  filebot -script fn:amc --output "/media/server" --action move -non-strict "/media/server/torrent/Complete/Rename/Movies" --log-file ~/amc.log --def excludeList=~/amc.txt --def clean=yes
-done
-else
-echo "No files to encode"
+  filebot -script fn:amc --output "/media/server" --action move -non-strict "/media/server/torrent/Complete/Rename/Movies" --log-file=/dev/null --def excludeList=~/amc.txt --def clean=yes
+  echo "[Movie] ${i} [$(date "+%a %D %H:%M")]" >> ~/converted.log
+  done
 fi
 rm $PIDFILE
