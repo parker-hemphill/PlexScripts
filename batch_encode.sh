@@ -104,8 +104,8 @@ find "$TV_ADD" -type f -not -name '*sample*' -size +70M -regex '.*\.\(avi\|mkv\|
 find "$MOVIE_ADD" -type f -not -name '*sample*' -size +600M -regex '.*\.\(avi\|mkv\|mod\|mpg\|mp4\|m4v\)' -exec mv "{}" "$MOVIE_CONVERT/" \;
 
 #Safe to run this command as the previous find command will always grab valid media before the containing folder is removed
-find "$TV_ADD" -type d -mmin +1440 -exec rm -rf {} \;
-find "$MOVIE_ADD" -type d -mmin +1440 -exec rm -rf {} \;
+#find "$TV_ADD" -type d -mmin +1440 -exec rm -rf {} \;
+#find "$MOVIE_ADD" -type d -mmin +1440 -exec rm -rf {} \;
 
 # Check if there are any files to convert in TV directory
 if [ -n "$(ls "$TV_CONVERT")" ]
