@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script is adapted from the bash script located at 
+# https://gist.githubusercontent.com/donmelton/5734177/raw/79532cf60c90c40485cc4e546783fcb312ea4be3/encode.sh
+
 die() {
     echo "$program: $1" >&2
     exit ${2:-1}
