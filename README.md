@@ -10,3 +10,5 @@ Type "crontab -e" and paste all between the hashes into your terminal window:
 */5 * * * * /var/tmp/convert_movie.sh >> /dev/null 2>&1
 #####
 This will check every minute for newly downloaded files and move them to be encoded.  It will also encode movies every 5 minutes and tv shows every minute.
+
+Be sure to view this file "RAW" so you get the correct characters for the crontab.  Github turns them into bullets for some reason.
